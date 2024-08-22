@@ -79,7 +79,7 @@ gem install lolcat
 apt install wondershaper -y
 clear
 # REPO    
-    REPO="https://raw.githubusercontent.com/rendiap100/project3/main/"
+    REPO="https://raw.githubusercontent.com/rendiap100/sshmax-new/main/"
 
 ####
 start=$(date +%s)
