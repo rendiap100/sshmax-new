@@ -1,0 +1,131 @@
+#!/bin/bash
+
+RED="\033[31m"
+YELLOW="\033[33m"
+NC='\e[0m'
+YELL='\033[0;33m'
+BRED='\033[1;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[33m'
+BGWHITE='\e[0;100;37m'
+
+clear
+ipsaya=$(curl -sS ipv4.icanhazip.com)
+data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
+data_ip="https://raw.githubusercontent.com/welwel11/izin/main/izin"
+checking_sc() {
+  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
+  if [[ $date_list < $useexp ]]; then
+    echo -ne
+  else
+    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          \033[0m"
+    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    echo -e ""
+    echo -e "            ${RED}PERMISSION DENIED !${NC}"
+    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
+    echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+    exit 0
+  fi
+}
+checking_sc
+clear
+
+clear
+echo -e " ╭══════════════════════════════════════════════════╮" | lolcat
+echo -e "   ${z}$NC [${YELL}01${NC}]$grenn INSTALL NOOBZVPN$NC    ${z}$NC [${YELL}08${NC}]$grenn REBOOT VPS ${z}$NC"
+echo -e "   ${z}$NC [${YELL}02${NC}]$grenn MENU DELL USER EXP$NC ${z}$NC  [${YELL}09${NC}]$grenn RENNEW DOMAIN ${z}$NC"
+echo -e "   ${z}$NC [${YELL}03${NC}]$grenn MENU AUTO REBOOT$NC  ${z} $NC  [${YELL}10${NC}]$grenn RUNNING ${z}$NC"
+echo -e "   ${z}$NC [${YELL}04${NC}]$grenn MENU SPEEDTES$NC${z}       $NC [${YELL}11${NC}]$grenn LOG ACCOUNT ${z}$NC"
+echo -e "   ${z}$NC [${YELL}05${NC}]$grenn MENU BOT TELEGRAM$NC ${z} $NC  [${YELL}12${NC}]$grenn FIX CERT SSL ${z}$NC"
+echo -e "   ${z}$NC [${YELL}06${NC}]$grenn CHANGE BANNER$NC    ${z} $NC   [${YELL}13${NC}]$grenn INSTALL UDP ${z}$NC"
+echo -e "   ${z}$NC [${YELL}07${NC}]$grenn WAKTU REBOOT$NC     ${z} $NC   [${YELL}14${NC}]$grenn MEDIA CHECKER ${z}$NC"
+echo -e " ╰══════════════════════════════════════════════════╯" | lolcat
+read -p " MENU : " opt
+echo -e ""
+case $opt in
+1 | 01)
+git clone https://github.com/noobz-id/noobzvpns.git
+cd noobzvpns/
+./install.sh
+echo ""
+read -p "ENTER UNTUK KEMBALI KE MENU"
+menu-system
+;;
+2 | 02)
+clear
+xp
+echo ""
+read -p "ENTER UNTUK KEMBALI KE MENU"
+menu-system
+;;
+3 | 03)
+clear
+autoreboot
+;;
+4 | 04)
+clear
+speedtest
+echo ""
+read -p "ENTER UNTUK KEMBALI KE MENU"
+menu-system
+;;
+5 | 05)
+clear
+m-bot
+;;
+6 | 06)
+clear
+nano /etc/kyt.txt
+;;
+7 | 07)
+clear
+jam
+;;
+8 | 08)
+clear
+reboot
+;;
+9 | 09)
+clear
+addhost
+;;
+10 | 010)
+clear
+run
+;;
+11 | 011)
+clear
+cat /etc/user-create/user.log
+echo ""
+read -p "ENTER UNTUK KEMBALI KE MENU"
+menu-system
+;;
+12 | 012)
+clear
+fixcert
+;;
+13 | 013)
+clear
+wget --load-cookies /tmp/cookies.txt ${UDPX} -O install-udp && rm -rf /tmp/cookies.txt && chmod +x install-udp && ./install-udp
+echo ""
+read -p "ENTER UNTUK KEMBALI KE MENU"
+menu-system
+;;
+14 | 014)
+clear
+netf
+;;
+0 | 00)
+menu
+;;
+x)
+menu
+;;
+*) clear ;
+echo -e
+menu
+;;
+esac
+clear
