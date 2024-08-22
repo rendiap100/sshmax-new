@@ -9,7 +9,7 @@ NC="\033[0m"
 g="\033[1;92m"
 y='\033[1;33m' #yellow
 clear
-IPVPES="https://raw.githubusercontent.com/welwel11/izin/main/izin"
+IPVPES="https://raw.githubusercontent.com/rendiap100/izin/main/izin"
 clear
 ipsaya=$(curl -sS ipv4.icanhazip.com)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
