@@ -229,34 +229,36 @@ function base_package() {
 clear
 # Fungsi input domain
 function pasang_domain() {
-echo -e ""
-clear
-echo -e "  .==========================================."
-echo -e "   |\e[1;32mSETUP DOMAIN \e[0m|"
-echo -e "   '=========================================='"
-echo -e "     \e[1;32m1)\e[0m Menggunakan Domain Pribadi"
-echo -e "   =========================================="
-read -p "  Pilih Menu Domain (enter) to continue with the domain script : " host
-echo ""
-if [[ $host == "1" ]]; then
-echo -e "   \e[1;32mMasukan Domain Anda ! $NC"
-read -p "   Subdomain: " host1
-echo "IP=" >> /var/lib/kyt/ipvps.conf
-echo $host1 > /etc/xray/domain
-echo $host1 > /root/domain
-echo ""
-elif [[ $host == "2" ]]; then
-#install cf
-wget ${REPO}files/cf.sh && chmod +x cf.sh && ./cf.sh
-rm -f /root/cf.sh
-clear
-else
-print_install "Random Subdomain/Domain is Used"
-clear
+    echo -e ""
+    clear
+    echo -e "  .==========================================."
+    echo -e "   |\e[1;32mSETUP DOMAIN \e[0m|"
+    echo -e "   '=========================================='"
+    echo -e "     \e[1;32m1)\e[0m Menggunakan Domain Pribadi"
+    echo -e "   =========================================="
+    read -p "  Pilih Menu Domain (tekan enter untuk menggunakan domain random): " host
+    echo ""
+    
+    if [[ $host == "1" ]]; then
+        echo -e "   \e[1;32mMasukan Domain Anda! $NC"
+        read -p "   Subdomain: " host1
+        echo "IP=" >> /var/lib/kyt/ipvps.conf
+        echo $host1 > /etc/xray/domain
+        echo $host1 > /root/domain
+        echo ""
+    else
+        # Generate a random domain (simulasi domain random)
+        random_domain="random-$(date +%s | sha256sum | base64 | head -c 8).example.com"
+        echo -e "\e[1;32mDomain random digunakan: $random_domain\e[0m"
+        echo "IP=" >> /var/lib/kyt/ipvps.conf
+        echo $random_domain > /etc/xray/domain
+        echo $random_domain > /root/domain
+        echo ""
     fi
 }
 
 clear
+
 #GANTI PASSWORD DEFAULT
 restart_system(){
 #IZIN SCRIPT
