@@ -247,8 +247,12 @@ function pasang_domain() {
         echo $host1 > /root/domain
         echo ""
     else
-        # Generate a random domain (simulasi domain random)
-        random_domain="random-$(date +%s | sha256sum | base64 | head -c 8).example.com"
+   
+        random_name=$(shuf -n1 /usr/share/dict/words)  
+        random_number=$((RANDOM % 10000))  
+        random_subdomain="${random_name}${random_number}"  
+        custom_domain="sshmax.my.id"  # Your custom domain
+        random_domain="${random_subdomain}.${custom_domain}"  
         echo -e "\e[1;32mDomain random digunakan: $random_domain\e[0m"
         echo "IP=" >> /var/lib/kyt/ipvps.conf
         echo $random_domain > /etc/xray/domain
