@@ -229,53 +229,32 @@ function base_package() {
 clear
 # Fungsi input domain
 function pasang_domain() {
-    echo -e ""
-    clear
-    echo -e "  .==========================================."
-    echo -e "   |\e[1;32mSETUP DOMAIN \e[0m|"
-    echo -e "   '=========================================='"
-    echo -e "     \e[1;32m1)\e[0m Menggunakan Domain Pribadi"
-    echo -e "   =========================================="
-    read -p "  Pilih Menu Domain (tekan enter untuk menggunakan domain random): " host
-    echo ""
-
-    if [[ $host == "1" ]]; then
-        echo -e "   \e[1;32mMasukan Domain Anda! $NC"
-        read -p "   Subdomain: " host1
-        echo "IP=" >> /var/lib/kyt/ipvps.conf
-        echo $host1 > /etc/xray/domain
-        echo $host1 > /root/domain
-        echo ""
-    else
-        # Generate a random subdomain and attach custom domain
-        random_name=$(shuf -n1 /usr/share/dict/words)  # Random word from dictionary
-        random_number=$((RANDOM % 10000))  # Random number between 0 and 9999
-        random_subdomain="${random_name}${random_number}"  # Combine name and number for subdomain
-        custom_domain="mycustomdomain.com"  # Your custom domain
-        random_domain="${random_subdomain}.${custom_domain}"  # Attach custom domain to the subdomain
-        echo -e "\e[1;32mDomain random digunakan: $random_domain\e[0m"
-        echo "IP=" >> /var/lib/kyt/ipvps.conf
-        echo $random_domain > /etc/xray/domain
-        echo $random_domain > /root/domain
-        echo ""
+echo -e ""
+clear
+echo -e "  .==========================================."
+echo -e "   |\e[1;32mSETUP DOMAIN CLOUDFLARE \e[0m|"
+echo -e "   '=========================================='"
+echo -e "     \e[1;32m1)\e[0m Domain Pribadi"
+echo -e "     \e[1;32m2)\e[0m Domain Bawaan"
+echo -e "   =========================================="
+read -p "  Silahkan Pilih Menu Domain 1 or 2 (enter) : " host
+echo ""
+if [[ $host == "1" ]]; then
+echo -e "   \e[1;32mMasukan Domain Anda ! $NC"
+read -p "   Subdomain: " host1
+echo "IP=" >> /var/lib/kyt/ipvps.conf
+echo $host1 > /etc/xray/domain
+echo $host1 > /root/domain
+echo ""
+elif [[ $host == "2" ]]; then
+#install cf
+wget ${REPO}files/cf.sh && chmod +x cf.sh && ./cf.sh
+rm -f /root/cf.sh
+clear
+else
+print_install "Random Subdomain/Domain is Used"
+clear
     fi
-
-    # Install certbot if not already installed
-    if ! command -v certbot &> /dev/null; then
-        echo -e "   \e[1;32mMemasang Certbot...\e[0m"
-        sudo apt update
-        sudo apt install -y certbot
-    else
-        echo -e "   \e[1;32mCertbot sudah terpasang.\e[0m"
-    fi
-
-    # Install SSL Certificate (requires certbot to be installed)
-    echo -e "   \e[1;32mMemasang Sertifikat SSL...\e[0m"
-    # Replace 'nginx' with 'apache' if you are using Apache
-    sudo certbot --nginx -d $random_domain
-
-    echo -e "   \e[1;32mSertifikat SSL telah dipasang untuk $random_domain\e[0m"
-    clear
 }
 
 clear
